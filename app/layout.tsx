@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -19,8 +20,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={font.className}>{children}</body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        layout: {
+          socialButtonsVariant: "iconButton",
+          logoImageUrl: "./discord-logo.svg",
+        },
+        variables: {
+          colorBackground: "#15171c",
+          colorPrimary: "",
+          colorText: "white",
+          colorInputBackground: "#1b1f29",
+          colorInputText: "white",
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={font.className}>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
